@@ -1,0 +1,43 @@
+﻿@using MessangerUI.HtmlHelpers
+@using MessangerUI.Models
+@model MessageListViewModel
+
+@{
+    ViewBag.Title = "List Messages";
+}
+
+@foreach (var mess in Model.Message)
+{
+    <div class="well">
+        <div class="row">
+            <div class="col-xs-10">
+                <h4>
+                    <strong>@mess.Users.FirstName</strong>
+                    <strong>@mess.Users.SecondName</strong>
+                </h4>
+                <h4>
+                   
+                </h4>
+            </div>
+            <div class="col-xs-12">
+                <strong>@mess.Body</strong>
+            </div>
+            <h3>
+                <strong class="pull-right label label-primary">
+                    @mess.Date
+                </strong>
+            </h3>
+        </div>
+    </div>
+    @*<div>
+        <h3>@mess.Users.FirstName</h3>
+        <h3>@mess.Users.SecondName</h3>
+        <p>@mess.Body</p>
+        <h4>@mess.Date</h4>
+    </div>
+    <hr/>*@
+}
+
+<div class="btn btn-block" style ="font-size:x-large">
+    @Html.PageLinks(Model.PagingInfo, x => Url.Action("ListMessage", new {page = x}))
+</div>
