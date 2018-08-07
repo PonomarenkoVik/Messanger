@@ -7,7 +7,7 @@ namespace MessangerUI.Models
 {
     public class PagingInfo
     {
-        public int TotalItems { get; set; } // common number of messages
+        public long TotalItems { get; set; } // common number of messages
         public int ItemsPerPage { get; set; } //number of messages per page
         public int CurrentPage { get; set; } // number of current page
 

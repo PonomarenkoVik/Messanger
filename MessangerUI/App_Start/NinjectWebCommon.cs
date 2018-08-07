@@ -1,3 +1,7 @@
+using Abstract;
+using BL;
+using MessangerDataLayer;
+
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(MessangerUI.App_Start.NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(MessangerUI.App_Start.NinjectWebCommon), "Stop")]
 
@@ -44,7 +48,8 @@ namespace MessangerUI.App_Start
             {
                 kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
                 kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
-
+                kernel.Bind<IBLMessanger>().To<BLMessanger>();
+                kernel.Bind<IMessangerRepository>().To<MessangerRepository>();
                 RegisterServices(kernel);
                 return kernel;
             }

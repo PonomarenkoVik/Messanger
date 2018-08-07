@@ -19,6 +19,6 @@ namespace MessangerDataLayer
         public string Body { get; set; }
         public System.DateTime Date { get; set; }
     
-        public virtual User Users { get; set; }
+        public virtual User User { get; set; }
     }
 }

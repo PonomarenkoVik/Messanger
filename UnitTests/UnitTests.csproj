@@ -111,9 +111,9 @@
       <Project>{16ba3995-3c06-49e1-a109-41cc58cba2c1}</Project>
       <Name>MessangerDataLayer</Name>
     </ProjectReference>
-    <ProjectReference Include="..\MessangerUI\MessangerUI.csproj">
+    <ProjectReference Include="..\MessangerUI\MessangerServer.csproj">
       <Project>{6041a457-5884-485b-895e-f9be4b15aff1}</Project>
-      <Name>MessangerUI</Name>
+      <Name>MessangerServer</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />

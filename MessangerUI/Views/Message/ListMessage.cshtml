@@ -6,14 +6,14 @@
     ViewBag.Title = "List Messages";
 }
 
-@foreach (var mess in Model.Message)
+@foreach (var mess in Model.Messages)
 {
     <div class="well">
         <div class="row">
             <div class="col-xs-10">
                 <h4>
-                    <strong>@mess.Users.FirstName</strong>
-                    <strong>@mess.Users.SecondName</strong>
+                    <strong>@mess.User.FirstName</strong>
+                    <strong>@mess.User.SecondName</strong>
                 </h4>
                 <h4>
                    
@@ -30,8 +30,8 @@
         </div>
     </div>
     @*<div>
-        <h3>@mess.Users.FirstName</h3>
-        <h3>@mess.Users.SecondName</h3>
+        <h3>@mess.User.FirstName</h3>
+        <h3>@mess.User.SecondName</h3>
         <p>@mess.Body</p>
         <h4>@mess.Date</h4>
     </div>

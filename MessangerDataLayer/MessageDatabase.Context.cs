@@ -7,7 +7,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using MessangerDataLayer.Abstraction;
 
 namespace MessangerDataLayer
 {
@@ -15,7 +14,7 @@ namespace MessangerDataLayer
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class MessageDatabaseContext : DbContext, IDataRepository
+    public partial class MessageDatabaseContext : DbContext
     {
         public MessageDatabaseContext()
             : base("name=MessageDatabaseContext")

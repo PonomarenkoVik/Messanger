@@ -16,13 +16,13 @@ namespace MessangerUI
             routes.MapRoute(
                 name: null,
                 url: "Page№{page}",
-                defaults: new { controller = "Message", action = "ListMessage"}
+                defaults: new { controller = "Messages", action = "ListMessage"}
             );
 
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Message", action = "ListMessage", id = UrlParameter.Optional }
+                defaults: new { controller = "Messages", action = "ListMessage", id = UrlParameter.Optional }
             );
         }
     }

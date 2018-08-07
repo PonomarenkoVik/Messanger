@@ -209,16 +209,24 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MessangerDataLayer\MessangerDataLayer.csproj">
-      <Project>{16ba3995-3c06-49e1-a109-41cc58cba2c1}</Project>
-      <Name>MessangerDataLayer</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Abstract\Abstract.csproj">
+      <Project>{a81a22f9-cde2-4841-81a7-3f1ece25300c}</Project>
+      <Name>Abstract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BL\BL.csproj">
+      <Project>{7911fa46-bcfd-4ddb-99c8-37d9e80d409e}</Project>
+      <Name>BL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MessangerDataLayer\MessangerDataLayer.csproj">
+      <Project>{16ba3995-3c06-49e1-a109-41cc58cba2c1}</Project>
+      <Name>MessangerDataLayer</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
