@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="Classes\AMessage.cs" />
     <Compile Include="Classes\AUser.cs" />
+    <Compile Include="Exception\OverRangeException.cs" />
     <Compile Include="Interfaces\IBLMessanger.cs" />
     <Compile Include="Interfaces\IMessangerRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

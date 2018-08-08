@@ -12,24 +12,89 @@ namespace MessangerDataLayer
 {
     public class MessangerRepository : IMessangerRepository
     {
-        public List<AMessage> GetMessagesById(long startId, long numberMessages)
+        public async Task<List<AMessage>> GetMessagesById(int skip, int numberMessages)
         {
-            throw new NotImplementedException();
+            List<AMessage> result = new List<AMessage>();
+            try
+            {
+                using (var messDbContext = new MessageDatabaseContext())
+                {
+                    var messages = await messDbContext.Messages
+                        .OrderBy(message => message.MessageId)
+                        .Skip(skip)
+                        .Take(numberMessages).ToListAsync();
+
+                    foreach (var message in messages)
+                    {
+                        result.Add(message.ConvertToAMessage());
+                    }
+                }
+            }
+            catch (NullReferenceException)
+            {
+                throw;
+            }
+
+            return result;
         }
 
-        public List<AMessage> GetMessagesByUser(long userId)
+        public async Task<List<AUser>> GetUsersById(int skip, int numberUsers)
         {
-            throw new NotImplementedException();
+            List<AUser> result = new List<AUser>();
+            try
+            {
+                using (var messDbContext = new MessageDatabaseContext())
+                {
+                    var users = await messDbContext.Users
+                        .OrderBy(user => user.UserId)
+                        .Skip(skip)
+                        .Take(numberUsers).ToListAsync();
+
+                    foreach (var user in users)
+                    {
+                        result.Add(user.ConvertToAUser());
+                    }
+                }
+            }
+            catch (NullReferenceException)
+            {
+                throw;
+            }
+
+            return result;
         }
 
-        public AUser GetUserById(long userId)
+        public async Task<List<AMessage>> GetMessagesByUser(long userId)
+        {
+            List<AMessage> result = new List<AMessage>();
+            try
+            {
+                using (var messDbContext = new MessageDatabaseContext())
+                {
+                    var messages = await messDbContext.Messages.Where(m => m.UserId == userId).ToListAsync();
+
+                    foreach (var message in messages)
+                    {
+                       result.Add(message.ConvertToAMessage());
+                    }
+                }
+            }
+            catch (NullReferenceException)
+            {
+                throw;
+            }
+
+            return result;
+        }
+
+        public async Task<AUser> GetUserById(long userId)
         {
             AUser user = null;
             try
             {
                 using (var messDbContext = new MessageDatabaseContext())
                 {
-                    user = messDbContext.Users.Single<User>(u => u.UserId == userId).ConvertToAUser();
+                    user = (await messDbContext.Users.SingleAsync<User>(u => u.UserId == userId)).ConvertToAUser();
                     var messages = messDbContext.Messages.Where(m => m.UserId == userId);
                     var aMessages = new List<AMessage>();
                     foreach (var message in messages)
@@ -83,24 +148,56 @@ namespace MessangerDataLayer
             return result;
         }
 
-
-        public ViewResult ListMessage(int page = 1)
+        public void AddMessage(AMessage mess)
         {
-            MessageListViewModel model = new MessageListViewModel()
+            if (mess != null)
             {
-                Messages = _blMessanger.Messages
-                    .OrderBy(message => message.MessageId)
-                    .Skip((page - 1) * PageSize)
-                    .Take(PageSize),
-                PagingInfo = new PagingInfo()
+                Message ms = new Message()
                 {
-                    CurrentPage = page,
-                    ItemsPerPage = PageSize,
-                    TotalItems = _blMessanger.Messages.Count()
+                    Body = mess.Body,
+                    UserId = mess.UserId,
+                    Date = mess.Date
+                };
+               
+                try
+                {
+                    using (var messDbContext = new MessageDatabaseContext())
+                    {
+                        messDbContext.Messages.Add(ms);
+                    }
+                }
+                catch (Exception e)
+                {
+                    throw new NotImplementedException();
                 }
 
-            };
-            return View(model);
+            }
+        }
+
+        public void AddUser(AUser user)
+        {
+            if (user != null)
+            {
+                User us = new User
+                {
+                    Email = user.Email,
+                    FirstName = user.FirstName,
+                    SecondName = user.SecondName
+                };
+
+                try
+                {
+                    using (var messDbContext = new MessageDatabaseContext())
+                    {
+                        messDbContext.Users.Add(us);
+                    }
+                }
+                catch (Exception e)
+                {
+                    throw new NotImplementedException();
+                }
+                
+            }
         }
     }
 }

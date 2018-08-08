@@ -9,13 +9,12 @@ namespace Abstract
 {
     public interface IBLMessanger
     {
-
-        List<AMessage> GetMessagesByPage(int page, int pageSize);
-        List<AMessage> GetMessagesByUser(long userId);
-        AUser GetUserById(long userId);
-        List<AUser> GetUsersByPage(int page, int pageSize);
-        bool TryRegister(AUser user);
-        bool AddMessage(AMessage message);
-        long CountMessages { get; }
+        Task<List<AMessage>> GetMessagesByPage(int page, int pageSize);
+        Task<List<AMessage>> GetMessagesByUser(long userId);
+        Task<AUser> GetUserById(long userId);
+        Task<List<AUser>> GetUsersByPage(int page, int pageSize);
+        Task<bool> TryRegister(AUser user);
+        Task<bool> AddMessage(AMessage message);
+        Task<long> GetCountMessages();
     }
 }

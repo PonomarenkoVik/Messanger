@@ -9,13 +9,14 @@ namespace Abstract
 {
     public interface IMessangerRepository
     {
-        List<AMessage> GetMessagesById(long startId, long numberMessages);
-        List<AMessage> GetMessagesByUser(long userId);
-        AUser GetUserById(long userId);
+        Task<List<AMessage>> GetMessagesById(int skip, int numberMessages);
+        Task<List<AUser>> GetUsersById(int skip, int numberUsers);
+        Task<List<AMessage>> GetMessagesByUser(long userId);
+        Task<AUser> GetUserById(long userId);
 
         Task<long> GetCountMessages();
         Task<bool> IsUserExists(string email);
-
-
+        void AddMessage(AMessage mess);
+        void AddUser(AUser user);
     }
 }
