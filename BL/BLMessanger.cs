@@ -85,20 +85,55 @@ namespace BL
             bool result = false;
             try
             {
-                bool userIsExist = await _repository.IsUserExists(user.Email);
-
-                if (!userIsExist)
+                if (user != null)
                 {
-                    _repository.AddUser(user);
-                    result = true;
+                    string mess;
+
+                    if (UserValidate(user, out mess))
+                    {
+                        bool userIsExist = await _repository.IsUserExist(user.Email);
+
+                        if (!userIsExist)
+                        {
+                            _repository.AddUser(user);
+                            result = true;
+                        }
+                        else
+                        {
+                            throw new UserExistException("User is exist");
+                        }
+                    }
+                    else
+                    {
+                        throw new UserValidateException(mess);
+                    }
+
                 }
+                else
+                {
+                    throw new NullReferenceException("User is null");
+                }
+
+            }
+            catch (NullReferenceException e)
+            {
+                throw;
+            }
+            catch (UserValidateException e)
+            {
+                throw;
+            }
+            catch (UserExistException e)
+            {
+                throw;
             }
             catch (Exception e)
             {
-                result = false;
+                throw new NotImplementedException();
             }
             return result;
         }
+
 
         public Task<bool> AddMessage(AMessage message)
         {
@@ -109,6 +144,24 @@ namespace BL
         {
             long count = await _repository.GetCountMessages();
             return count;
+        }
+
+
+        private bool UserValidate(AUser user, out string mess)
+        {
+            bool result = true;
+            UserValidator validator = new UserValidator(user);
+            validator.Validate();
+            if (validator.IsValid != true)
+            {
+                result = false;
+                mess = validator.Message;
+            }
+            else
+            {
+                mess = null;
+            }
+            return result;
         }
 
         private readonly IMessangerRepository _repository;

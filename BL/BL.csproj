@@ -41,7 +41,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BLMessanger.cs" />
+    <Compile Include="MessageValidator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserValidator.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Abstract\Abstract.csproj">

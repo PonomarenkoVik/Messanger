@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Web.Mvc;
 using MessangerDataLayer;
-using MessangerDataLayer.Abstraction;
 using MessangerUI.HtmlHelpers;
 using MessangerUI.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

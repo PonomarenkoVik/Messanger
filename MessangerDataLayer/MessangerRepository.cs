@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using System.Windows.Forms;
 using Abstract;
 using Abstract.Classes;
 
@@ -17,7 +18,7 @@ namespace MessangerDataLayer
             List<AMessage> result = new List<AMessage>();
             try
             {
-                using (var messDbContext = new MessageDatabaseContext())
+                using (var messDbContext = new MessageDatabaseCont())
                 {
                     var messages = await messDbContext.Messages
                         .OrderBy(message => message.MessageId)
@@ -43,7 +44,7 @@ namespace MessangerDataLayer
             List<AUser> result = new List<AUser>();
             try
             {
-                using (var messDbContext = new MessageDatabaseContext())
+                using (var messDbContext = new MessageDatabaseCont())
                 {
                     var users = await messDbContext.Users
                         .OrderBy(user => user.UserId)
@@ -69,7 +70,7 @@ namespace MessangerDataLayer
             List<AMessage> result = new List<AMessage>();
             try
             {
-                using (var messDbContext = new MessageDatabaseContext())
+                using (var messDbContext = new MessageDatabaseCont())
                 {
                     var messages = await messDbContext.Messages.Where(m => m.UserId == userId).ToListAsync();
 
@@ -92,7 +93,7 @@ namespace MessangerDataLayer
             AUser user = null;
             try
             {
-                using (var messDbContext = new MessageDatabaseContext())
+                using (var messDbContext = new MessageDatabaseCont())
                 {
                     user = (await messDbContext.Users.SingleAsync<User>(u => u.UserId == userId)).ConvertToAUser();
                     var messages = messDbContext.Messages.Where(m => m.UserId == userId);
@@ -115,10 +116,10 @@ namespace MessangerDataLayer
 
         public async Task<long> GetCountMessages()
         {  
-            long result;
+            long result = -1;
             try
             {
-                using (var messDbContext = new MessageDatabaseContext())
+                using (var messDbContext = new MessageDatabaseCont())
                 {
                     result = await messDbContext.Messages.CountAsync();
                 }
@@ -127,14 +128,18 @@ namespace MessangerDataLayer
             {
                 throw;
             }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
             return result;
         }
-        public async Task<bool> IsUserExists(string email)
+        public async Task<bool> IsUserExist(string email)
         {
             bool result;
             try
             {
-                using (var messDbContext = new MessageDatabaseContext())
+                using (var messDbContext = new MessageDatabaseCont())
                 {
                     var user = await messDbContext.Users.SingleAsync(u => u.Email == email);
                     result = true;
@@ -161,7 +166,7 @@ namespace MessangerDataLayer
                
                 try
                 {
-                    using (var messDbContext = new MessageDatabaseContext())
+                    using (var messDbContext = new MessageDatabaseCont())
                     {
                         messDbContext.Messages.Add(ms);
                     }
@@ -187,7 +192,7 @@ namespace MessangerDataLayer
 
                 try
                 {
-                    using (var messDbContext = new MessageDatabaseContext())
+                    using (var messDbContext = new MessageDatabaseCont())
                     {
                         messDbContext.Users.Add(us);
                     }

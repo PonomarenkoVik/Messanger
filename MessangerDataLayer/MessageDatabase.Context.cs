@@ -7,17 +7,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-
 namespace MessangerDataLayer
 {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class MessageDatabaseContext : DbContext
+    public partial class MessageDatabaseCont : DbContext
     {
-        public MessageDatabaseContext()
-            : base("name=MessageDatabaseContext")
+        public MessageDatabaseCont()
+            : base("name=MessageDatabaseCont")
         {
         }
     

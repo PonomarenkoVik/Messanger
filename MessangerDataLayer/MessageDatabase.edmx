@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="MessageDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="MessageDatabaseM.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Messages">
           <Key>
             <PropertyRef Name="MessageId" />
@@ -35,7 +35,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="MessageDatabaseModelStoreContainer">
+        <EntityContainer Name="MessageDatabaseMStoreContainer">
           <EntitySet Name="Messages" EntityType="Self.Messages" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_MESSAGES_RELATIONS_USERS" Association="Self.FK_MESSAGES_RELATIONS_USERS">
@@ -47,7 +47,7 @@
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="MessageDatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="MessageDatabaseM" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Message">
           <Key>
             <PropertyRef Name="MessageId" />
@@ -56,7 +56,7 @@
           <Property Name="UserId" Type="Int64" Nullable="false" />
           <Property Name="Body" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="Users" Relationship="Self.FK_MESSAGES_RELATIONS_USERS" FromRole="Messages" ToRole="Users" />
+          <NavigationProperty Name="User" Relationship="Self.FK_MESSAGES_RELATIONS_USERS" FromRole="Messages" ToRole="Users" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -69,8 +69,8 @@
           <NavigationProperty Name="Messages" Relationship="Self.FK_MESSAGES_RELATIONS_USERS" FromRole="Users" ToRole="Messages" />
         </EntityType>
         <Association Name="FK_MESSAGES_RELATIONS_USERS">
-          <End Role="Users" Type="MessageDatabaseModel.User" Multiplicity="1" />
-          <End Role="Messages" Type="MessageDatabaseModel.Message" Multiplicity="*" />
+          <End Role="Users" Type="MessageDatabaseM.User" Multiplicity="1" />
+          <End Role="Messages" Type="MessageDatabaseM.Message" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Users">
               <PropertyRef Name="UserId" />
@@ -80,9 +80,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="MessageDatabaseContext" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Messages" EntityType="MessageDatabaseModel.Message" />
-          <EntitySet Name="Users" EntityType="MessageDatabaseModel.User" />
+        <EntityContainer Name="MessageDatabaseCont" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Messages" EntityType="MessageDatabaseM.Message" />
+          <EntitySet Name="Users" EntityType="MessageDatabaseM.User" />
           <AssociationSet Name="FK_MESSAGES_RELATIONS_USERS" Association="Self.FK_MESSAGES_RELATIONS_USERS">
             <End Role="Users" EntitySet="Users" />
             <End Role="Messages" EntitySet="Messages" />
@@ -93,9 +93,9 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="MessageDatabaseModelStoreContainer" CdmEntityContainer="MessageDatabaseContext">
+        <EntityContainerMapping StorageEntityContainer="MessageDatabaseMStoreContainer" CdmEntityContainer="MessageDatabaseCont">
           <EntitySetMapping Name="Messages">
-            <EntityTypeMapping TypeName="MessageDatabaseModel.Message">
+            <EntityTypeMapping TypeName="MessageDatabaseM.Message">
               <MappingFragment StoreEntitySet="Messages">
                 <ScalarProperty Name="MessageId" ColumnName="MessageId" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
@@ -105,7 +105,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Users">
-            <EntityTypeMapping TypeName="MessageDatabaseModel.User">
+            <EntityTypeMapping TypeName="MessageDatabaseM.User">
               <MappingFragment StoreEntitySet="Users">
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
