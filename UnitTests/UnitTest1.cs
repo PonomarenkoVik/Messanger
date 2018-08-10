@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Web.Mvc;
 using MessangerDataLayer;
-using MessangerUI.HtmlHelpers;
-using MessangerUI.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using Server.HtmlHelpers;
+using Server.Models;
 
 namespace UnitTests
 {

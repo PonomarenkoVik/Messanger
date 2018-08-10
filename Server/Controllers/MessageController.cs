@@ -16,9 +16,9 @@ namespace Server.Controllers
         private const int PageSize = 5;
         private readonly IBLMessanger _blMessanger;
 
-        public MessageController()
+        public MessageController(IBLMessanger blMessanger)
         {
-            _blMessanger = new BLMessanger(new MessangerRepository());
+            _blMessanger = blMessanger;
         }
         // GET: Messages
 

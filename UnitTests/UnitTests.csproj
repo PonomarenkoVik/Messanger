@@ -111,6 +111,10 @@
       <Project>{16ba3995-3c06-49e1-a109-41cc58cba2c1}</Project>
       <Name>MessangerDataLayer</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Server\Server.csproj">
+      <Project>{15200361-9D07-4B3F-9219-F0CF5F9F409B}</Project>
+      <Name>Server</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
